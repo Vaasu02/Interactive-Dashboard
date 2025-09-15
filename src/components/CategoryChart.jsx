@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
   PieChart,
@@ -52,6 +52,23 @@ const CustomLegend = ({ payload }) => {
 
 const CategoryChart = ({ data, isLoading }) => {
   const [activeIndex, setActiveIndex] = useState(null);
+  const [chartSize, setChartSize] = useState({ innerRadius: 40, outerRadius: 70 });
+
+  useEffect(() => {
+    const updateChartSize = () => {
+      if (window.innerWidth >= 1024) {
+        setChartSize({ innerRadius: 60, outerRadius: 100 });
+      } else if (window.innerWidth >= 768) {
+        setChartSize({ innerRadius: 50, outerRadius: 85 });
+      } else {
+        setChartSize({ innerRadius: 40, outerRadius: 70 });
+      }
+    };
+
+    updateChartSize();
+    window.addEventListener('resize', updateChartSize);
+    return () => window.removeEventListener('resize', updateChartSize);
+  }, []);
 
   if (isLoading) {
     return (
@@ -83,15 +100,15 @@ const CategoryChart = ({ data, isLoading }) => {
     >
       <h3 className="text-xl font-bold text-white mb-6">Category Distribution</h3>
       
-      <div className="h-64">
+      <div className="h-48 sm:h-64 lg:h-80">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie
               data={data}
               cx="50%"
               cy="50%"
-              innerRadius={60}
-              outerRadius={100}
+              innerRadius={chartSize.innerRadius}
+              outerRadius={chartSize.outerRadius}
               paddingAngle={2}
               dataKey="value"
               onMouseEnter={handlePieEnter}
@@ -117,23 +134,23 @@ const CategoryChart = ({ data, isLoading }) => {
       </div>
 
       {/* Additional stats */}
-      <div className="mt-6 grid grid-cols-2 gap-4">
+      <div className="mt-4 sm:mt-6 grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4">
         {data.slice(0, 4).map((item, index) => (
           <motion.div
             key={item.name}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 + index * 0.1 }}
-            className="flex items-center justify-between p-3 bg-slate-700/50 rounded-lg"
+            className="flex items-center justify-between p-2 sm:p-3 bg-slate-700/50 rounded-lg"
           >
             <div className="flex items-center gap-2">
               <div
                 className="w-3 h-3 rounded-full"
                 style={{ backgroundColor: item.color }}
               />
-              <span className="text-sm text-slate-300">{item.name}</span>
+              <span className="text-xs sm:text-sm text-slate-300">{item.name}</span>
             </div>
-            <span className="text-sm font-medium text-white">{item.value}%</span>
+            <span className="text-xs sm:text-sm font-medium text-white">{item.value}%</span>
           </motion.div>
         ))}
       </div>

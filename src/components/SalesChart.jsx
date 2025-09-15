@@ -82,10 +82,10 @@ const SalesChart = ({ data, isLoading }) => {
         </div>
       </div>
 
-      <div className="h-64">
+      <div className="h-64 sm:h-72 lg:h-96">
         <ResponsiveContainer width="100%" height="100%">
           {chartType === 'line' ? (
-            <LineChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+            <LineChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
               <XAxis 
                 dataKey="month" 
@@ -119,7 +119,7 @@ const SalesChart = ({ data, isLoading }) => {
               />
             </LineChart>
           ) : (
-            <BarChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+            <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
               <XAxis 
                 dataKey="month" 

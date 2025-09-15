@@ -107,16 +107,16 @@ const DataTable = ({ data, isLoading }) => {
       transition={{ duration: 0.5, delay: 0.6 }}
       className="bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-xl border border-slate-700 shadow-lg"
     >
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
         <h3 className="text-xl font-bold text-white">Recent Orders</h3>
-        <div className="relative">
+        <div className="relative w-full sm:w-auto">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
           <input
             type="text"
             placeholder="Search orders..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 pr-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
       </div>
@@ -135,11 +135,12 @@ const DataTable = ({ data, isLoading }) => {
               ].map((column) => (
                 <th
                   key={column.key}
-                  className="text-left py-3 px-4 text-sm font-medium text-slate-300 cursor-pointer hover:text-white transition-colors"
+                  className="text-left py-3 px-2 sm:px-4 text-xs sm:text-sm font-medium text-slate-300 cursor-pointer hover:text-white transition-colors"
                   onClick={() => handleSort(column.key)}
                 >
-                  <div className="flex items-center gap-2">
-                    {column.label}
+                  <div className="flex items-center gap-1 sm:gap-2">
+                    <span className="hidden sm:inline">{column.label}</span>
+                    <span className="sm:hidden">{column.label.length > 6 ? column.label.substring(0, 6) : column.label}</span>
                     {getSortIcon(column.key)}
                   </div>
                 </th>
@@ -155,14 +156,14 @@ const DataTable = ({ data, isLoading }) => {
                 transition={{ delay: index * 0.05 }}
                 className="border-b border-slate-700/50 hover:bg-slate-700/30 transition-colors"
               >
-                <td className="py-3 px-4 text-sm text-slate-300">#{order.id}</td>
-                <td className="py-3 px-4 text-sm text-white font-medium">{order.customer}</td>
-                <td className="py-3 px-4 text-sm text-slate-300">{order.product}</td>
-                <td className="py-3 px-4 text-sm text-green-400 font-medium">${order.amount}</td>
-                <td className="py-3 px-4">
+                <td className="py-3 px-2 sm:px-4 text-xs sm:text-sm text-slate-300">#{order.id}</td>
+                <td className="py-3 px-2 sm:px-4 text-xs sm:text-sm text-white font-medium">{order.customer}</td>
+                <td className="py-3 px-2 sm:px-4 text-xs sm:text-sm text-slate-300">{order.product}</td>
+                <td className="py-3 px-2 sm:px-4 text-xs sm:text-sm text-green-400 font-medium">${order.amount}</td>
+                <td className="py-3 px-2 sm:px-4">
                   <StatusBadge status={order.status} />
                 </td>
-                <td className="py-3 px-4 text-sm text-slate-300">
+                <td className="py-3 px-2 sm:px-4 text-xs sm:text-sm text-slate-300">
                   {new Date(order.date).toLocaleDateString()}
                 </td>
               </motion.tr>
