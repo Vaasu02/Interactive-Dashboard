@@ -4,9 +4,8 @@
 
 A beautiful, modern interactive dashboard built with React, featuring smooth animations, interactive charts, and a professional dark theme. This project demonstrates advanced React development skills with modern libraries and best practices.
 
-## 🎯 Assignment Overview
+## 🎯 Overview
 
-**Company:** Tecnvirons Pvt LTD  
 **Project:** Interactive Dashboard Assignment  
 **Date:** 15/9/25  
 **Focus:** Modern UI + Charts/Graphs  
@@ -342,4 +341,3 @@ npm run json-server -- --watch db.json --port 3001 --verbose
 - **Professional code quality** with modern patterns
 - **Ready for video demo** with impressive functionality
 
-**This dashboard will definitely impress the evaluators and demonstrate excellent UI design skills and modern library usage!** 🎯✨
